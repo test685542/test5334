@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAININGSZEITEN - CHAMPIONS FACTORY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Gothic+A1:wght@800&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://i.ibb.co/Vcjyzn0c/470042333-9669219619760823-385539095922760555-n.jpg" type="image/jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'roboto-mono': ['"Roboto Mono"', 'monospace'],
+                        'gothic': ['"Gothic A1"', 'sans-serif'],
+                    },
+                    colors: {
+                        'dark-blue': '#1a237e',
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-[#1a1f25] font-roboto-mono">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-6 py-4 transition-all duration-300 shadow-sm bg-white/5 backdrop-blur-sm">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+            <img src="https://i.ibb.co/Vcjyzn0c/470042333-9669219619760823-385539095922760555-n.jpg" alt="Ironfist Gym Logo" class="h-12 sm:h-16">
+        </div>
+
+        <!-- Hamburger Menu Button -->
+        <button class="md:hidden text-gray-400 hover:text-white transition-colors duration-300" onclick="toggleMenu()">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <!-- Three Lines -->
+                <g id="menuIcon" class="origin-center">
+                    <path class="transform transition-transform duration-500" 
+                          d="M4 6h16" 
+                          stroke-linecap="round"/>
+                    <path class="transform transition-all duration-500" 
+                          d="M4 12h16" 
+                          stroke-linecap="round"/>
+                    <path class="transform transition-transform duration-500" 
+                          d="M4 18h16" 
+                          stroke-linecap="round"/>
+                </g>
+            </svg>
+        </button>
+
+        <!-- Navigation Links (Desktop) -->
+        <div class="hidden md:block absolute left-1/2 transform -translate-x-1/2">
+            <ul class="flex space-x-6">
+                <li><a href="/ai/index.html" class="text-lg font-gothic font-semibold text-white hover:text-red-600 transition-colors duration-300">HOME</a></li>
+                <li><a href="/ai/stundenplan.html" class="text-lg font-gothic font-semibold text-white hover:text-red-600 transition-colors duration-300">STUNDENPLAN</a></li>
+                <li><a href="/ai/regeln.html" class="text-lg font-gothic font-semibold text-white hover:text-red-600 transition-colors duration-300">REGELN</a></li>
+                <li><a href="/ai/preise.html" class="text-lg font-gothic font-semibold text-white hover:text-red-600 transition-colors duration-300">PREISE</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Slideshow Hintergrund für Mobile Menu -->
+<div id="menuBackground" class="fixed inset-0 z-30 hidden">
+    <div class="w-full h-full">
+        <!-- Slideshow Container -->
+        <img src="https://i.ibb.co/ChjSP49/chris-kendall-s-J6az6-T1u8-unsplash.jpg" class="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000" alt="Slide 1">
+        <img src="https://i.ibb.co/5nzBZQq/slide2.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" alt="Slide 2">
+        <img src="https://i.ibb.co/6nrkVCJ/slide3.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" alt="Slide 3">
+        <img src="https://i.ibb.co/1bxNzgP/slide4.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" alt="Slide 4">
+        <img src="https://i.ibb.co/kxs0BJK/johann-walter-bantz-Clv9-Df-JLwac-unsplash.jpg" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" alt="Slide 5">
+        
+        <!-- Dunkler Overlay -->
+        <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
+    </div>
+</div>
+
+    <!-- Mobile Menu (mit leichtem Hintergrund) -->
+    <div id="mobileMenu" class="fixed inset-0 z-40 hidden md:hidden">
+        <div class="flex flex-col items-center justify-center h-full">
+            <div class="overflow-hidden">
+                <div id="menuLinks" class="flex flex-col items-center space-y-8 transform translate-y-full transition-all duration-700 ease-in-out">
+                    <a href="/ai/index.html" class="text-3xl font-gothic font-semibold text-white hover:text-red-600 transition-colors duration-300">HOME</a>
+                    <a href="/ai/stundenplan.html" class="text-3xl font-gothic font-semibold text-white hover:text-red-600 transition-colors duration-300">STUNDENPLAN</a>
+                    <a href="/ai/regeln.html" class="text-3xl font-gothic font-semibold text-white hover:text-red-600 transition-colors duration-300">REGELN</a>
+                    <a href="/ai/preise.html" class="text-3xl font-gothic font-semibold text-white hover:text-red-600 transition-colors duration-300">PREISE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trainingszeiten Section -->
+<section class="container mx-auto px-4 py-24 pt-40">
+    <!-- Überschrift -->
+    <div class="hidden md:flex items-center justify-center mb-12">
+        <h1 class="text-5xl font-gothic text-white">TRAININGSZEITEN</h1>
+    </div>
+
+        <!-- Mobile Ansicht -->
+        <div class="md:hidden space-y-6 px-2">
+            <!-- Überschrift anpassen -->
+            <div class="flex items-center justify-center mb-8">
+                <h1 class="text-3xl sm:text-4xl font-gothic text-white">TRAININGSZEITEN</h1>
+            </div>
+
+            <!-- Montag -->
+            <div class="bg-white/5 rounded-lg p-4">
+                <div class="bg-red-600 text-white text-center py-3 px-4 rounded-lg mb-4 text-lg sm:text-xl font-gothic">
+                    Montag
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">17:00-18:00</span>
+                        <span class="font-medium text-base sm:text-lg">Ringen Kids</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">18:15-19:15</span>
+                        <span class="font-medium text-base sm:text-lg">Ringen Anfänger</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">19:15-20:30</span>
+                        <span class="font-medium text-base sm:text-lg">Ringen Fortgeschritten</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">20:30-22:00</span>
+                        <span class="font-medium text-base sm:text-lg">MMA/Muay Thai</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dienstag -->
+            <div class="bg-white/5 rounded-lg p-4">
+                <div class="bg-red-600 text-white text-center py-3 px-4 rounded-lg mb-4 text-lg sm:text-xl font-gothic">
+                    Dienstag
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">17:00-18:00</span>
+                        <span class="font-medium text-base sm:text-lg">BJJ Gi/No-Gi Kids</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">18:15-19:15</span>
+                        <span class="font-medium text-base sm:text-lg">BJJ Gi/No-Gi Anfänger</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">19:15-20:30</span>
+                        <span class="font-medium text-base sm:text-lg">BJJ Gi/No-Gi Fortgeschritten</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">20:30-22:00</span>
+                        <span class="font-medium text-base sm:text-lg">MMA/Muay Thai</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mittwoch -->
+            <div class="bg-white/5 rounded-lg p-4">
+                <div class="bg-red-600 text-white text-center py-3 px-4 rounded-lg mb-4 text-lg sm:text-xl font-gothic">
+                    Mittwoch
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">17:00-18:00</span>
+                        <span class="font-medium text-base sm:text-lg">Ringen Kids</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">18:15-19:15</span>
+                        <span class="font-medium text-base sm:text-lg">Ringen Anfänger</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">19:15-20:30</span>
+                        <span class="font-medium text-base sm:text-lg">Ringen Fortgeschritten</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">20:30-22:00</span>
+                        <span class="font-medium text-base sm:text-lg">MMA/Muay Thai</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Donnerstag -->
+            <div class="bg-white/5 rounded-lg p-4">
+                <div class="bg-red-600 text-white text-center py-3 px-4 rounded-lg mb-4 text-lg sm:text-xl font-gothic">
+                    Donnerstag
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">17:00-18:00</span>
+                        <span class="font-medium text-base sm:text-lg">BJJ Gi/No-Gi Kids</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">18:15-19:15</span>
+                        <span class="font-medium text-base sm:text-lg">BJJ Gi/No-Gi Anfänger</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">19:15-20:30</span>
+                        <span class="font-medium text-base sm:text-lg">BJJ Gi/No-Gi Fortgeschritten</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">20:30-22:00</span>
+                        <span class="font-medium text-base sm:text-lg">MMA/Muay Thai</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Freitag -->
+            <div class="bg-white/5 rounded-lg p-4">
+                <div class="bg-red-600 text-white text-center py-3 px-4 rounded-lg mb-4 text-lg sm:text-xl font-gothic">
+                    Freitag
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">17:00-18:00</span>
+                        <span class="font-medium text-base sm:text-lg">Ringen Kids</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">18:15-19:15</span>
+                        <span class="font-medium text-base sm:text-lg">Ringen Anfänger</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">19:15-20:30</span>
+                        <span class="font-medium text-base sm:text-lg">Ringen Fortgeschritten</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">20:30-22:00</span>
+                        <span class="font-medium text-base sm:text-lg">MMA/Muay Thai</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Samstag -->
+            <div class="bg-white/5 rounded-lg p-4">
+                <div class="bg-red-600 text-white text-center py-3 px-4 rounded-lg mb-4 text-lg sm:text-xl font-gothic">
+                    Samstag
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">17:00-18:00</span>
+                        <span class="font-medium text-base sm:text-lg">BJJ Gi/No-Gi Kids</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">18:15-19:15</span>
+                        <span class="font-medium text-base sm:text-lg">BJJ Gi/No-Gi Anfänger</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">19:15-20:30</span>
+                        <span class="font-medium text-base sm:text-lg">BJJ Gi/No-Gi Fortgeschritten</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">20:30-22:00</span>
+                        <span class="font-medium text-base sm:text-lg">MMA/Muay Thai</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sonntag -->
+            <div class="bg-white/5 rounded-lg p-4">
+                <div class="bg-red-600 text-white text-center py-3 px-4 rounded-lg mb-4 text-lg sm:text-xl font-gothic">
+                    Sonntag
+                </div>
+                <div class="space-y-3">
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">/</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">/</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">/</span>
+                    </div>
+                    <div class="bg-white/90 p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <span class="text-red-600 font-semibold text-sm sm:text-base">/</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop Ansicht -->
+        <div class="hidden md:grid grid-cols-8 gap-2">
+            <!-- Zeiten Überschrift -->
+            <div class="text-white text-center py-2">ZEITEN</div>
+            
+            <!-- Wochentage Überschriften -->
+            <div class="bg-red-600 text-white text-center py-2 rounded">Montag</div>
+            <div class="bg-red-600 text-white text-center py-2 rounded">Dienstag</div>
+            <div class="bg-red-600 text-white text-center py-2 rounded">Mittwoch</div>
+            <div class="bg-red-600 text-white text-center py-2 rounded">Donnerstag</div>
+            <div class="bg-red-600 text-white text-center py-2 rounded">Freitag</div>
+            <div class="bg-red-600 text-white text-center py-2 rounded">Samstag</div>
+            <div class="bg-red-600 text-white text-center py-2 rounded">Sonntag</div>
+
+            <!-- Zeitenspalte -->
+            <div class="space-y-2">
+                <div class="bg-red-600 text-white p-4 rounded h-24 flex items-center justify-center">17:00-18:00</div>
+                <div class="bg-red-600 text-white p-4 rounded h-24 flex items-center justify-center">18:15-19:15</div>
+                <div class="bg-red-600 text-white p-4 rounded h-24 flex items-center justify-center">19:15-20:30</div>
+                <div class="bg-red-600 text-white p-4 rounded h-24 flex items-center justify-center">20:30-22:00</div>
+            </div>
+
+            <!-- Montag -->
+            <div class="space-y-2">
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">Ringen Kids</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">Ringen Anfänger</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">Ringen Fortgeschritten</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">MMA/Muay Thai</div>
+            </div>
+            
+            <!-- Dienstag -->
+            <div class="space-y-2">
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">BJJ Gi/No-Gi Kids</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">BJJ Gi/No-Gi Anfänger</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">BJJ Gi/No-Gi Fortgeschritten</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">MMA/Muay Thai</div>
+            </div>
+
+            <!-- Mittwoch -->
+            <div class="space-y-2">
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">Ringen Kids</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">Ringen Anfänger</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">Ringen Fortgeschritten</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">MMA/Muay Thai</div>
+            </div>
+
+            <!-- Donnerstag -->
+            <div class="space-y-2">
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">BJJ Gi/No-Gi Kids</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">BJJ Gi/No-Gi Anfänger</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">BJJ Gi/No-Gi Fortgeschritten</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">MMA/Muay Thai</div>
+            </div>
+
+            <!-- Freitag -->
+            <div class="space-y-2">
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">Ringen Kids</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">Ringen Anfänger</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">Ringen Fortgeschritten</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">MMA/Muay Thai</div>
+            </div>
+
+            <!-- Samstag -->
+            <div class="space-y-2">
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">BJJ Gi/No-Gi Kids</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">BJJ Gi/No-Gi Anfänger</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">BJJ Gi/No-Gi Fortgeschritten</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">MMA/Muay Thai</div>
+            </div>
+            
+            <!-- Sonntag -->
+            <div class="space-y-2">
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">/</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">/</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">/</div>
+                <div class="bg-white p-4 rounded h-24 flex items-center justify-center text-center">/</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-8 sm:py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <!-- INFO Column -->
+                <div class="text-center sm:text-left">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-gothic mb-6">INFO</h2>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-red-600 transition-colors duration-300">Impressum</a></li>
+                        <li><a href="#" class="hover:text-red-600 transition-colors duration-300">Datenschutzerklärung</a></li>
+                        <li><a href="#" class="hover:text-red-600 transition-colors duration-300">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <!-- KONTAKT Column -->
+                <div class="text-center">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-gothic mb-6">KONTAKT</h2>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-gray-400 mb-1">ADRESSE</p>
+                            <a href="https://maps.app.goo.gl/V2zEuTJGJfGEyHYT7" target="_blank" class="hover:text-red-600 transition-colors duration-300">RUCKERGASSE 12/1, 1120 WIEN</a>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 mb-1">E-MAIL</p>
+                            <a href="mailto:office@championsfactory.at" class="hover:text-red-600 transition-colors duration-300">office@championsfactory.at</a>
+                        </div>
+                        <div>
+                            <p class="text-gray-400 mb-1">NUMMER</p>
+                            <a href="tel:4319673458" class="hover:text-red-600 transition-colors duration-300">+43 676 7768983</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ÖFFNUNGSZEITEN Column -->
+                <div class="text-center sm:text-right">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-gothic mb-6">ÖFFNUNGSZEITEN</h2>
+                    <div class="space-y-2">
+                        <p>Mo: 17:00-22:00</p>
+                        <p>Di: 17:00-22:00</p>
+                        <p>Mi: 17:00-22:00</p>
+                        <p>Do: 17:00-22:00</p>
+                        <p>Fr: 17:00-22:00</p>
+                        <p>Sa-: 17:00-22:00</p>
+                        <p>So: geschlossen</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+const menu = document.getElementById('mobileMenu');
+const menuIcon = document.getElementById('menuIcon');
+const menuLinks = document.getElementById('menuLinks');
+const menuLines = menuIcon.querySelectorAll('path');
+const menuBackground = document.getElementById('menuBackground');
+const slides = menuBackground.getElementsByTagName('img');
+let currentSlide = 0;
+let slideshowInterval;
+let isOpen = false;
+
+function nextSlide() {
+    // Aktuelles Bild ausblenden
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.opacity = '0';
+    }
+    
+    // Zum nächsten Bild wechseln
+    currentSlide = (currentSlide + 1) % slides.length;
+    
+    // Nur das aktuelle Bild einblenden
+    slides[currentSlide].style.opacity = '1';
+}
+
+function toggleMenu() {
+    isOpen = !isOpen;
+    menu.classList.toggle('hidden');
+    menuBackground.classList.toggle('hidden');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    
+    menuLinks.style.transform = isOpen ? 'translateY(0)' : 'translateY(100%)';
+
+    if (isOpen) {
+        menuLines[0].style.transform = 'translateY(6px) rotate(45deg)';
+        menuLines[1].style.transform = 'scaleX(0)';
+        menuLines[1].style.opacity = '0';
+        menuLines[2].style.transform = 'translateY(-6px) rotate(-45deg)';
+        
+        // Alle Bilder ausblenden außer dem ersten
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.opacity = i === 0 ? '1' : '0';
+            // Alle Transitionen entfernen
+            slides[i].style.transition = 'none';
+        }
+        currentSlide = 0;
+        
+        // Bildwechsel starten
+        slideshowInterval = setInterval(nextSlide, 700);
+    } else {
+        menuLines[0].style.transform = 'translateY(0) rotate(0)';
+        menuLines[1].style.transform = 'scaleX(1)';
+        menuLines[1].style.opacity = '1';
+        menuLines[2].style.transform = 'translateY(0) rotate(0)';
+        clearInterval(slideshowInterval);
+    }
+}
+
+// Navbar Scroll Effect
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('nav');
+    const navLinks = document.querySelectorAll('nav a');
+    
+    if (window.scrollY > 50) {
+        navbar.classList.remove('shadow-sm', 'bg-white/5', 'backdrop-blur-sm');
+        navbar.classList.add('bg-white', 'shadow-md');
+        navLinks.forEach(link => {
+            link.classList.remove('text-white');
+            link.classList.add('text-gray-800');
+        });
+    } else {
+        navbar.classList.remove('bg-white', 'shadow-md');
+        navbar.classList.add('shadow-sm', 'bg-white/5', 'backdrop-blur-sm');
+        navLinks.forEach(link => {
+            link.classList.remove('text-gray-800');
+            link.classList.add('text-white');
+        });
+    }
+});
+    </script>
+</body>
+
+</html>
